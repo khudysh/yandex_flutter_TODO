@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_manager/l10n/all_locales.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/task_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'core/l10n/all_locales.dart';
 
 void main() => runApp(
       const ProviderScope(
@@ -30,7 +31,7 @@ class MyApp extends ConsumerWidget {
         fontFamily: 'Roboto',
       ),
       debugShowCheckedModeBanner: false,
-    home: const TaskScreen(),
+      home: const TaskScreen(),
     );
   }
 }

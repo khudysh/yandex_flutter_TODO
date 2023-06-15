@@ -16,18 +16,28 @@ class Todo {
 class TodosNotifier extends ChangeNotifier {
   final todos = <Todo>[];
   int todosCompleted = 0;
+  bool showCompleted = true;
+  int globalId = 0;
+
+  void toggleShowCompleted() {
+    showCompleted = !showCompleted;
+    notifyListeners();
+  }
 
   void addTodo(Todo todo) {
     todos.add(todo);
+    globalId += 1;
     notifyListeners();
   }
 
   void removeTodo(int todoId) {
-    todos.remove(todos.firstWhere((element) => element.id == todoId));
+    Todo todo = todos.firstWhere((element) => element.id == todoId);
+    if (todo.completed) todosCompleted -= 1;
+    todos.remove(todo);
     notifyListeners();
   }
 
-  void toggle(int todoId) {
+  void toggleTodo(int todoId) {
     final todo = todos.firstWhere((todo) => todo.id == todoId);
     if (todo.completed) {
       todo.completed = !todo.completed;

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:flutter_task_manager/features/main_tasks/ui/providers/task_provider.dart';
+import 'package:flutter_task_manager/features/main_tasks/ui/utils/task_validator.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/widgets/dismissible_task.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/widgets/top_bar.dart';
-import '../../task_adding/ui/task_adding_screen.dart';
-
-final StateProvider hide = StateProvider<bool>((ref) {
-  return false;
-});
-int count = 0;
+import 'package:flutter_task_manager/features/task_adding/ui/task_adding_screen.dart';
 
 class TaskScreen extends ConsumerStatefulWidget {
   const TaskScreen({super.key});
@@ -18,53 +15,9 @@ class TaskScreen extends ConsumerStatefulWidget {
 }
 
 class _TaskScreenState extends ConsumerState<TaskScreen> {
-  List<Task> tasks = [];
-  int taskIndex = 0;
-  bool checked = false;
-
-  void addTodoItem(String task) {
-    setState(() {
-      tasks.add(Task(task, taskIndex, false));
-      taskIndex++;
-    });
-  }
-
-  void removeTodoItem(int index) {
-    setState(() {
-      tasks.removeAt(index);
-    });
-  }
-
-  bool checkHide(index) {
-    return tasks[index].checked == true ? true : false;
-  }
-
-  void swipe(
-    int index,
-    direction,
-  ) {
-    switch (direction) {
-      case DismissDirection.endToStart:
-        setState(() {
-          tasks.removeAt(index);
-        });
-        break;
-      case DismissDirection.startToEnd:
-        setState(() {
-          tasks[index].checked = !tasks[index].checked;
-          tasks[index].checked == true ? count++ : count--;
-        });
-        break;
-      default:
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Todo> todos = ref.watch(todosProvider).todos;
-    final click = ref.watch(hide);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -84,8 +37,13 @@ class _TaskScreenState extends ConsumerState<TaskScreen> {
                     padding: const EdgeInsets.all(0),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    children:
-                        todos.map((todo) => DissmisibleTask(todo)).toList(),
+                    children: [
+                      for (Todo todo in todos)
+                        if (ref.read(todosProvider.notifier).showCompleted)
+                          DissmisibleTask(todo)
+                        else if (!todo.completed)
+                          DissmisibleTask(todo)
+                    ],
                   ),
                   Container(
                     decoration: const BoxDecoration(
@@ -96,7 +54,7 @@ class _TaskScreenState extends ConsumerState<TaskScreen> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(72, 22, 0, 22),
                           child: Text(
-                            "Новое",
+                            "Здесь могли быть ваши задачи...",
                             style: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 0.3),
                                 fontSize: 16,
@@ -113,20 +71,14 @@ class _TaskScreenState extends ConsumerState<TaskScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final task = await Navigator.push(
+        onPressed: () {
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => TaskAddingScreen()),
           );
-          if (task != null) {
-            ref.read(todosProvider).addTodo(
-                Todo(completed: false, description: task, id: todos.length));
-          }
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 }
-
-

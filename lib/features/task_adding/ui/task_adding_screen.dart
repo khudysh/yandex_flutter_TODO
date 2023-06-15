@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/providers/task_provider.dart';
+import 'package:flutter_task_manager/features/main_tasks/ui/utils/task_validator.dart';
 
 class TaskAddingScreen extends ConsumerWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -28,10 +29,18 @@ class TaskAddingScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
             child: TextButton(
                 onPressed: () {
-
-                  Navigator.pop(context, _textEditingController.text);
+                  String taskText = _textEditingController.text;
+                  if (Validators.taskValidator(taskText)) {
+                    ref.read(todosProvider).addTodo(Todo(
+                        completed: false,
+                        description: taskText,
+                        id: ref.read(todosProvider).globalId));
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.pop(context);
+                  }
                 },
-                child: const Text('СОХРАНИТЬ',
+                child: const Text('Сохранить',
                     style: TextStyle(
                         color: Color.fromRGBO(0, 122, 255, 1),
                         fontSize: 14,
@@ -50,15 +59,14 @@ class TaskAddingScreen extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Что надо сделать...",
+                    decoration: const InputDecoration(
+                      hintText: "Очень важное дело...",
                       hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.3)),
                       border: InputBorder.none,
                     ),
                     controller: _textEditingController,
                     textInputAction: TextInputAction.newline,
                     keyboardType: TextInputType.multiline,
-                    maxLines: null,
                   ),
                 ),
               ),

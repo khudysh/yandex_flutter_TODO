@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_task_manager/features/main_tasks/ui/providers/task_provider.dart';
+
 class LeftToRightDismis extends StatelessWidget {
-  final todo;
+  final Todo todo;
   const LeftToRightDismis(this.todo, {super.key}) ;
 
   @override
