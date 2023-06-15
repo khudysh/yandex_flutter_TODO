@@ -29,7 +29,7 @@ class _MySliverBarState extends ConsumerState<TopBar> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  top < MediaQuery.of(context).padding.top + kToolbarHeight + 11
+                  top < MediaQuery.of(context).padding.top + kToolbarHeight + 15
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
