@@ -6,11 +6,15 @@ class Todo {
     required this.id,
     required this.description,
     required this.completed,
+    required this.importance,
+    this.deadline
   });
 
   int id;
   String description;
   bool completed;
+  String importance;
+  DateTime? deadline;
 }
 
 class TodosNotifier extends ChangeNotifier {
@@ -18,6 +22,17 @@ class TodosNotifier extends ChangeNotifier {
   int todosCompleted = 0;
   bool showCompleted = true;
   int globalId = 0;
+
+  static const List<DropdownMenuItem<String>>  menuItems = [
+     DropdownMenuItem(value: "Нет", child: Text("Нет")),
+     DropdownMenuItem(value: "Низкая", child: Text("Низкая")),
+     DropdownMenuItem(
+        value: "Высокая",
+        child: Text(
+          "!! Высокая",
+          style: TextStyle(color: Colors.red),
+        )),
+  ];
 
   void toggleShowCompleted() {
     showCompleted = !showCompleted;

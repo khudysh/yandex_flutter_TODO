@@ -6,6 +6,7 @@ import 'package:flutter_task_manager/features/main_tasks/ui/utils/task_validator
 import 'package:flutter_task_manager/features/main_tasks/ui/widgets/dismissible_task.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/widgets/top_bar.dart';
 import 'package:flutter_task_manager/features/task_adding/ui/task_adding_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskScreen extends ConsumerStatefulWidget {
   const TaskScreen({super.key});
@@ -45,23 +46,34 @@ class _TaskScreenState extends ConsumerState<TaskScreen> {
                           DissmisibleTask(todo)
                     ],
                   ),
-                  Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: const Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(72, 22, 0, 22),
-                          child: Text(
-                            "Здесь могли быть ваши задачи...",
-                            style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.3),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400),
-                          ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TaskAddingScreen(),
                         ),
-                      ],
+                      );
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(72, 22, 0, 22),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .mainTaskAddPlaceholder,
+                              style: const TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -74,7 +86,9 @@ class _TaskScreenState extends ConsumerState<TaskScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskAddingScreen()),
+            MaterialPageRoute(
+              builder: (context) => TaskAddingScreen(),
+            ),
           );
         },
         child: const Icon(Icons.add),

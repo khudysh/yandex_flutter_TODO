@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/providers/task_provider.dart';
 import 'package:flutter_task_manager/features/main_tasks/ui/task_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopBar extends ConsumerStatefulWidget {
   const TopBar({super.key});
@@ -33,9 +34,9 @@ class _MySliverBarState extends ConsumerState<TopBar> {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Мои дела',
-                              style: TextStyle(
+                            Text(
+                              AppLocalizations.of(context).mainAppBarTitle,
+                              style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -72,9 +73,9 @@ class _MySliverBarState extends ConsumerState<TopBar> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Мои дела',
-                              style: TextStyle(
+                            Text(
+                              AppLocalizations.of(context).mainAppBarTitle,
+                              style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -83,7 +84,10 @@ class _MySliverBarState extends ConsumerState<TopBar> {
                             Row(
                               children: [
                                 Text(
-                                  'Выполнено - ${ref.watch(todosProvider).todosCompleted}',
+                                  AppLocalizations.of(context)
+                                      .mainAppBarSubtitle(
+                                    ref.watch(todosProvider).todosCompleted,
+                                  ),
                                   style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w400,

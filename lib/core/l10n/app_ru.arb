@@ -1,5 +1,14 @@
 {
-    "app_bar_title":"Список задач",
-    "main_screen_title":"Задачи",
-    "tasks_placeholder_title":"Это одна из задач"
+    "mainAppBarTitle":"Мои дела",
+    "mainAppBarSubtitle":"Выполнено - {count}",
+    "mainTaskAddPlaceholder":"Здесь могли быть ваши задачи...",
+
+    "taskAddingAddPlaceholder":"Очень важное дело...",
+    "taskAddingImportanceTitle":"Важность",
+    "taskAddingImportanceNoOption":"Нет",
+    "taskAddingImportanceLowOption":"Низкий",
+    "taskAddingImportanceHighOption":"!! Высокий",
+    "taskAddingDeadlineTitle":"Сделать до",
+    "taskAddingDeleteBtn":"Удалить",
+    "taskAddingSaveBtn":"Сохранить"
 }

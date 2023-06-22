@@ -1,5 +1,14 @@
 {
-    "app_bar_title":"TaskList",
-    "main_screen_title":"Tasks",
-    "tasks_placeholder_title":"Here’s a task item"
+    "mainAppBarTitle":"My tasks",
+    "mainAppBarSubtitle":"Completed - {count}",
+    "mainTaskAddPlaceholder":"Here could be your tasks...",
+
+    "taskAddingAddPlaceholder":"A very important tasks...",
+    "taskAddingImportanceTitle":"Importance",
+    "taskAddingImportanceNoOption":"No",
+    "taskAddingImportanceLowOption":"Low",
+    "taskAddingImportanceHighOption":"!! High",
+    "taskAddingDeadlineTitle":"Do before",
+    "taskAddingDeleteBtn":"Delete",
+    "taskAddingSaveBtn":"Save"
 }
